@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:todo_x/colors/app_colors.dart';
+import 'package:todo_x/widgets/task_widget.dart';
 
 class AllTasks extends StatelessWidget {
   const AllTasks({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List myData = [
+      'Try harder',
+      'Try smarter',
+    ];
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -74,6 +79,23 @@ class AllTasks extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          Flexible(
+            child: ListView.builder(
+                itemCount: myData.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      bottom: 10,
+                    ),
+                    child: TaskWidget(
+                      text: myData[index],
+                      color: Colors.blueGrey,
+                    ),
+                  );
+                }),
           ),
         ],
       ),
