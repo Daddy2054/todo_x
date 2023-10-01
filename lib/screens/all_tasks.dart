@@ -11,6 +11,27 @@ class AllTasks extends StatelessWidget {
       'Try harder',
       'Try smarter',
     ];
+
+    final leftEditIcon = Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      color: const Color(0xff2e3253).withOpacity(0.5),
+      alignment: Alignment.centerLeft,
+      child: const Icon(
+        Icons.edit,
+        color: Colors.white,
+      ),
+    );
+
+    final rightDeleteIcon = Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      color: Colors.redAccent,
+      alignment: Alignment.centerRight,
+      child: const Icon(
+        Icons.delete,
+        color: Colors.white,
+      ),
+    );
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -84,15 +105,27 @@ class AllTasks extends StatelessWidget {
             child: ListView.builder(
                 itemCount: myData.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.only(
-                      left: 20,
-                      right: 20,
-                      bottom: 10,
-                    ),
-                    child: TaskWidget(
-                      text: myData[index],
-                      color: Colors.blueGrey,
+                  return Dismissible(
+                    background: leftEditIcon,
+                    secondaryBackground: rightDeleteIcon,
+                    key: ObjectKey(index),
+                    onDismissed: (DismissDirection direction) {
+                      print('after dissmiss');
+                    },
+                    confirmDismiss: (DismissDirection direction) async {
+                      print('confirming');
+                      return true;
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                        bottom: 10,
+                      ),
+                      child: TaskWidget(
+                        text: myData[index],
+                        color: Colors.blueGrey,
+                      ),
                     ),
                   );
                 }),
