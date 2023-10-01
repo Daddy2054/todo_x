@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:todo_x/colors/app_colors.dart';
 import 'package:todo_x/widgets/button_widget.dart';
 import 'package:todo_x/widgets/task_widget.dart';
@@ -52,9 +53,11 @@ class AllTasks extends StatelessWidget {
               ),
               fit: BoxFit.cover,
             )),
-            child: const Icon(
-              Icons.arrow_back,
-              color: AppColors.secondaryColor,
+            child: InkWell(onTap: () => Get.back(),
+              child: const Icon(
+                Icons.arrow_back,
+                color: AppColors.secondaryColor,
+              ),
             ),
           ),
           Container(
