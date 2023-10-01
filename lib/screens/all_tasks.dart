@@ -113,8 +113,12 @@ class AllTasks extends StatelessWidget {
                       print('after dissmiss');
                     },
                     confirmDismiss: (DismissDirection direction) async {
-                      print('confirming');
-                      return true;
+                      if (direction == DismissDirection.startToEnd) {
+                        return false;
+                      } else {
+                        return Future.delayed(const Duration(seconds: 1),
+                            () => direction == DismissDirection.endToStart);
+                      }
                     },
                     child: Container(
                       margin: const EdgeInsets.only(
