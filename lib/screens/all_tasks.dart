@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_x/colors/app_colors.dart';
+import 'package:todo_x/widgets/button_widget.dart';
 import 'package:todo_x/widgets/task_widget.dart';
 
 class AllTasks extends StatelessWidget {
@@ -114,6 +115,47 @@ class AllTasks extends StatelessWidget {
                     },
                     confirmDismiss: (DismissDirection direction) async {
                       if (direction == DismissDirection.startToEnd) {
+                        showModalBottomSheet(
+                            backgroundColor: Colors.transparent,
+                            barrierColor: Colors.transparent,
+                            context: context,
+                            builder: (_) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color(0xff2e3253).withOpacity(0.4),
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    topLeft: Radius.circular(20),
+                                  ),
+                                ),
+                                height: 500,
+                                child: const Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 20,
+                                    right: 20,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ButtonWidget(
+                                        backgroundcolor: AppColors.mainColor,
+                                        text: 'View',
+                                        textColor: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      ButtonWidget(
+                                        backgroundcolor: AppColors.mainColor,
+                                        text: 'Edit',
+                                        textColor: Colors.white,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
                         return false;
                       } else {
                         return Future.delayed(const Duration(seconds: 1),
