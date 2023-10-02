@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:todo_x/services/service.dart';
+
+import '../services/service.dart';
 
 class DataController extends GetxController {
   DataService service = DataService();
