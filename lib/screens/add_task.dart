@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_x/colors/app_colors.dart';
 import 'package:todo_x/widgets/button_widget.dart';
+import 'package:todo_x/widgets/error_warning_ms.dart';
 import 'package:todo_x/widgets/textfield_widget.dart';
 
 class AddTask extends StatelessWidget {
@@ -14,10 +15,28 @@ class AddTask extends StatelessWidget {
 
     bool _dataValidation() {
       if (nameController.text.trim() == '') {
-        Get.snackbar('Task name', 'Task name is empty');
+        Message.taskErrorOrWarning(
+          'Task name',
+          'Your task name is empty',
+        );
         return false;
       } else if (detailController.text.trim() == '') {
-        Get.snackbar('Task detail', 'Task detail is empty');
+        Message.taskErrorOrWarning(
+          'Task detail',
+          'Your task detail is empty',
+        );
+        return false;
+      } else if (nameController.text.length <= 10) {
+        Message.taskErrorOrWarning(
+          'Task name',
+          'Your task name should be at least 10 characters',
+        );
+        return false;
+      } else if (detailController.text.length <= 20) {
+        Message.taskErrorOrWarning(
+          'Task detail',
+          'Your task detail should be at least 20 characters',
+        );
         return false;
       }
       return true;
