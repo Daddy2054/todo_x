@@ -93,7 +93,9 @@ class AddTask extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _dataValidation();
+                   if (_dataValidation()){
+                    
+                   };
                   },
                   child: const ButtonWidget(
                     backgroundcolor: AppColors.mainColor,
