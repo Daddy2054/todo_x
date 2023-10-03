@@ -12,6 +12,17 @@ class AddTask extends StatelessWidget {
     TextEditingController nameController = TextEditingController();
     TextEditingController detailController = TextEditingController();
 
+    bool _dataValidation() {
+      if (nameController.text.trim() == '') {
+        Get.snackbar('Task name', 'Task name is empty');
+        return false;
+      } else if (detailController.text.trim() == '') {
+        Get.snackbar('Task detail', 'Task detail is empty');
+        return false;
+      }
+      return true;
+    }
+
     return Scaffold(
       body: Container(
         width: double.maxFinite,
@@ -61,10 +72,15 @@ class AddTask extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const ButtonWidget(
-                  backgroundcolor: AppColors.mainColor,
-                  text: 'Add',
-                  textColor: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    _dataValidation();
+                  },
+                  child: const ButtonWidget(
+                    backgroundcolor: AppColors.mainColor,
+                    text: 'Add',
+                    textColor: Colors.white,
+                  ),
                 ),
               ],
             ),
