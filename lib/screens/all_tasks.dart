@@ -2,18 +2,26 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_x/colors/app_colors.dart';
+import 'package:todo_x/controllers/data_controller.dart';
 import 'package:todo_x/widgets/button_widget.dart';
 import 'package:todo_x/widgets/task_widget.dart';
 
 class AllTasks extends StatelessWidget {
   const AllTasks({super.key});
 
+  loadData() async {
+    await Get.find<DataController>().getData();
+    
+  }
+
   @override
   Widget build(BuildContext context) {
-    List myData = [
-      'Try harder',
-      'Try smarter',
-    ];
+    loadData();
+ //   print(Get.find<DataController>().myData.length);
+    // List myData =  [
+    //   'Try harder',
+    //   'Try smarter',
+    // ];
 
     final leftEditIcon = Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -54,7 +62,8 @@ class AllTasks extends StatelessWidget {
               ),
               fit: BoxFit.cover,
             )),
-            child: InkWell(onTap: () => Get.back(),
+            child: InkWell(
+              onTap: () => Get.back(),
               child: const Icon(
                 Icons.arrow_back,
                 color: AppColors.secondaryColor,
@@ -108,7 +117,8 @@ class AllTasks extends StatelessWidget {
           ),
           Flexible(
             child: ListView.builder(
-                itemCount: myData.length,
+                itemCount: Get.find<DataController>().myData.length,
+//                itemCount: myData.length,
                 itemBuilder: (context, index) {
                   return Dismissible(
                     background: leftEditIcon,
@@ -175,7 +185,7 @@ class AllTasks extends StatelessWidget {
                         bottom: 10,
                       ),
                       child: TaskWidget(
-                        text: myData[index],
+                        text: Get.find<DataController>().myData[index]["task_name"],
                         color: Colors.blueGrey,
                       ),
                     ),
