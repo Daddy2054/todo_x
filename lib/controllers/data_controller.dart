@@ -29,18 +29,18 @@ class DataController extends GetxController {
    Future<void> postData(String task, String taskDetail) async {
     _isLoading = true;
     Response response = await service.postData({
-      'task':task,
+      'task_name':task,
       'task_detail':taskDetail,
     });
     if (response.statusCode == 200) {
-      _myData = response.body;
+  //    _myData = response.body;
       if (kDebugMode) {
-        print('we got the data');
+        print('data post successfull');
       }
       update();
     } else {
       if (kDebugMode) {
-        print('we did not  get any data');
+        print('data post failed');
       }
     }
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_x/colors/app_colors.dart';
+import 'package:todo_x/controllers/data_controller.dart';
+import 'package:todo_x/screens/all_tasks.dart';
 import 'package:todo_x/widgets/button_widget.dart';
 import 'package:todo_x/widgets/error_warning_ms.dart';
 import 'package:todo_x/widgets/textfield_widget.dart';
@@ -13,7 +15,7 @@ class AddTask extends StatelessWidget {
     TextEditingController nameController = TextEditingController();
     TextEditingController detailController = TextEditingController();
 
-    bool _dataValidation() {
+    bool dataValidation() {
       if (nameController.text.trim() == '') {
         Message.taskErrorOrWarning(
           'Task name',
@@ -93,9 +95,16 @@ class AddTask extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                   if (_dataValidation()){
-                    
-                   };
+                    if (dataValidation()) {
+                      Get.find<DataController>().postData(
+                        nameController.text.trim(),
+                        detailController.text.trim(),
+                      );
+                      Get.to(
+                        () => const AllTasks(),
+                        transition: Transition.circularReveal,
+                      );
+                    }
                   },
                   child: const ButtonWidget(
                     backgroundcolor: AppColors.mainColor,

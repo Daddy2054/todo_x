@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_x/colors/app_colors.dart';
@@ -114,7 +115,9 @@ class AllTasks extends StatelessWidget {
                     secondaryBackground: rightDeleteIcon,
                     key: ObjectKey(index),
                     onDismissed: (DismissDirection direction) {
-                      print('after dissmiss');
+                      if (kDebugMode) {
+                        print('after dissmiss');
+                      }
                     },
                     confirmDismiss: (DismissDirection direction) async {
                       if (direction == DismissDirection.startToEnd) {
