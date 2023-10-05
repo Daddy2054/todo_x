@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:todo_x/utils/app_constants.dart';
 
 import '../services/service.dart';
 
@@ -12,7 +13,9 @@ class DataController extends GetxController {
 
   Future<void> getData() async {
     _isLoading = true;
-    Response response = await service.getData();
+    Response response = await service.getData(
+      AppConstants.GET_TASKS,
+    );
     if (response.statusCode == 200) {
       _myData = response.body;
       if (kDebugMode) {
@@ -28,10 +31,13 @@ class DataController extends GetxController {
 
   Future<void> postData(String task, String taskDetail) async {
     _isLoading = true;
-    Response response = await service.postData({
-      "task_name": task,
-      "task_detail": taskDetail,
-    });
+    Response response = await service.postData(
+      AppConstants.POST_TASKS,
+      {
+        "task_name": task,
+        "task_detail": taskDetail,
+      },
+    );
     if (response.statusCode == 200) {
       update();
       //    _myData = response.body;

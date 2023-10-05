@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todo_x/colors/app_colors.dart';
+import 'package:todo_x/utils/app_colors.dart';
 import 'package:todo_x/screens/all_tasks.dart';
 import 'package:todo_x/widgets/button_widget.dart';
 

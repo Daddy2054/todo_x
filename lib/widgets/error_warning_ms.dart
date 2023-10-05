@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../colors/app_colors.dart';
+import '../utils/app_colors.dart';
 
 class Message {
   static void taskErrorOrWarning(
