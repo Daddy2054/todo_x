@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo_x/screens/view_task.dart';
 import 'package:todo_x/utils/app_colors.dart';
 import 'package:todo_x/controllers/data_controller.dart';
 import 'package:todo_x/widgets/button_widget.dart';
@@ -11,13 +12,12 @@ class AllTasks extends StatelessWidget {
 
   loadData() async {
     await Get.find<DataController>().getData();
-    
   }
 
   @override
   Widget build(BuildContext context) {
     loadData();
- //   print(Get.find<DataController>().myData.length);
+    //   print(Get.find<DataController>().myData.length);
     // List myData =  [
     //   'Try harder',
     //   'Try smarter',
@@ -116,81 +116,101 @@ class AllTasks extends StatelessWidget {
             ),
           ),
           Flexible(
-            child: ListView.builder(
-                itemCount: Get.find<DataController>().myData.length,
-//                itemCount: myData.length,
-                itemBuilder: (context, index) {
-                  return Dismissible(
-                    background: leftEditIcon,
-                    secondaryBackground: rightDeleteIcon,
-                    key: ObjectKey(index),
-                    onDismissed: (DismissDirection direction) {
-                      if (kDebugMode) {
-                        print('after dissmiss');
-                      }
-                    },
-                    confirmDismiss: (DismissDirection direction) async {
-                      if (direction == DismissDirection.startToEnd) {
-                        showModalBottomSheet(
-                            backgroundColor: Colors.transparent,
-                            barrierColor: Colors.transparent,
-                            context: context,
-                            builder: (_) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color(0xff2e3253).withOpacity(0.4),
-                                  borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(20),
-                                    topLeft: Radius.circular(20),
-                                  ),
-                                ),
-                                height: 500,
-                                child: const Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 20,
-                                    right: 20,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ButtonWidget(
-                                        backgroundcolor: AppColors.mainColor,
-                                        text: 'View',
-                                        textColor: Colors.white,
+            child: GetBuilder<DataController>(
+              builder: (controller) {
+                return ListView.builder(
+                    itemCount: Get.find<DataController>().myData.length,
+                    //                itemCount: myData.length,
+                    itemBuilder: (context, index) {
+                      return Dismissible(
+                        background: leftEditIcon,
+                        secondaryBackground: rightDeleteIcon,
+                        key: ObjectKey(index),
+                        onDismissed: (DismissDirection direction) {
+                          if (kDebugMode) {
+                            print('after dissmiss');
+                          }
+                        },
+                        confirmDismiss: (DismissDirection direction) async {
+                          if (direction == DismissDirection.startToEnd) {
+                            showModalBottomSheet(
+                                backgroundColor: Colors.transparent,
+                                barrierColor: Colors.transparent,
+                                context: context,
+                                builder: (_) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xff2e3253)
+                                          .withOpacity(0.4),
+                                      borderRadius: const BorderRadius.only(
+                                        topRight: Radius.circular(20),
+                                        topLeft: Radius.circular(20),
                                       ),
-                                      SizedBox(
-                                        height: 20,
+                                    ),
+                                    height: 500,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 20,
+                                        right: 20,
                                       ),
-                                      ButtonWidget(
-                                        backgroundcolor: AppColors.mainColor,
-                                        text: 'Edit',
-                                        textColor: Colors.white,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              Get.off(() => ViewTask(
+                                                    id: int.parse(controller.myData[index]
+                                                        ['id'].toString()),
+                                                  ));
+                                              //   if (kDebugMode) {
+                                              //   print(
+                                              //     "Tapped item id is ${controller.myData[index]['id']}");
+                                              // }
+                                            },
+                                            child: const ButtonWidget(
+                                              backgroundcolor:
+                                                  AppColors.mainColor,
+                                              text: 'View',
+                                              textColor: Colors.white,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          const ButtonWidget(
+                                            backgroundcolor:
+                                                AppColors.mainColor,
+                                            text: 'Edit',
+                                            textColor: Colors.white,
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            });
-                        return false;
-                      } else {
-                        return Future.delayed(const Duration(seconds: 1),
-                            () => direction == DismissDirection.endToStart);
-                      }
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                        bottom: 10,
-                      ),
-                      child: TaskWidget(
-                        text: Get.find<DataController>().myData[index]["task_name"],
-                        color: Colors.blueGrey,
-                      ),
-                    ),
-                  );
-                }),
+                                    ),
+                                  );
+                                });
+                            return false;
+                          } else {
+                            return Future.delayed(const Duration(seconds: 1),
+                                () => direction == DismissDirection.endToStart);
+                          }
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                            left: 20,
+                            right: 20,
+                            bottom: 10,
+                          ),
+                          child: TaskWidget(
+                            text: Get.find<DataController>().myData[index]
+                                ["task_name"],
+                            color: Colors.blueGrey,
+                          ),
+                        ),
+                      );
+                    });
+              },
+            ),
           ),
         ],
       ),

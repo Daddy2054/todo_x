@@ -27,6 +27,27 @@ class DataController extends GetxController {
         print('we did not  get any data');
       }
     }
+    _isLoading = false;
+
+  }
+
+   Future<void> getSingleData(String id) async {
+    _isLoading = true;
+    Response response = await service.getData(
+      '${AppConstants.GET_TASK}/$id',
+    );
+    if (response.statusCode == 200) {
+  //    _myData = response.body;
+      if (kDebugMode) {
+        print('we got the single data');
+      }
+      update();
+    } else {
+      if (kDebugMode) {
+        print('we did not  get any data');
+      }
+    }
+    _isLoading = false;
   }
 
   Future<void> postData(String task, String taskDetail) async {
