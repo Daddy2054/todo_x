@@ -1,8 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 class DataService extends GetConnect implements GetxService {
   Future<Response> getData(String uri) async {
-    print(uri);
+    if (kDebugMode) {
+      print(uri);
+    }
     Response response = await get(
       uri,
       // android dont want localhost, use ip from network

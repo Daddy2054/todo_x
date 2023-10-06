@@ -159,14 +159,19 @@ class AllTasks extends StatelessWidget {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Get.off(() => ViewTask(
-                                                    id: int.parse(controller.myData[index]
-                                                        ['id'].toString()),
-                                                  ));
-                                              //   if (kDebugMode) {
-                                              //   print(
-                                              //     "Tapped item id is ${controller.myData[index]['id']}");
-                                              // }
+                                              Get.off(
+                                                () => ViewTask(
+                                                  id: int.parse(
+                                                    controller.myData[index]
+                                                            ['id']
+                                                        .toString(),
+                                                  ),
+                                                ),
+                                              );
+                                              if (kDebugMode) {
+                                                print(
+                                                    "Tapped item id is ${controller.myData[index]['id']}");
+                                              }
                                             },
                                             child: const ButtonWidget(
                                               backgroundcolor:
