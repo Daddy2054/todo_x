@@ -1,15 +1,16 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo_x/utils/app_colors.dart';
 import 'package:todo_x/controllers/data_controller.dart';
+import 'package:todo_x/screens/all_tasks.dart';
+import 'package:todo_x/widgets/button_widget.dart';
+import 'package:todo_x/widgets/error_warning_ms.dart';
+import 'package:todo_x/widgets/textfield_widget.dart';
 
-import '../utils/app_colors.dart';
-import '../widgets/textfield_widget.dart';
-
-class ViewTask extends StatelessWidget {
+class EditTask extends StatelessWidget {
   final int id;
-  const ViewTask({
+  const EditTask({
     Key? key,
     required this.id,
   }) : super(key: key);
@@ -27,9 +28,42 @@ class ViewTask extends StatelessWidget {
     TextEditingController nameController = TextEditingController();
     TextEditingController detailController = TextEditingController();
 
+    bool dataValidation() {
+      if (nameController.text.trim() == '') {
+        Message.taskErrorOrWarning(
+          'Task name',
+          'Your task name is empty',
+        );
+        return false;
+      } else if (detailController.text.trim() == '') {
+        Message.taskErrorOrWarning(
+          'Task detail',
+          'Your task detail is empty',
+        );
+        return false;
+      } else if (nameController.text.length <= 10) {
+        Message.taskErrorOrWarning(
+          'Task name',
+          'Your task name should be at least 10 characters',
+        );
+        return false;
+      } else if (detailController.text.length <= 20) {
+        Message.taskErrorOrWarning(
+          'Task detail',
+          'Your task detail should be at least 20 characters',
+        );
+        return false;
+      }
+      return true;
+    }
+
     return Scaffold(
       body: GetBuilder<DataController>(
         builder: (controller) {
+          nameController.text =
+              controller.singleData['task_name'] ?? 'Task name not found';
+          detailController.text =
+              controller.singleData['task_detail'] ?? 'Task detail not found';
           return Container(
             width: double.maxFinite,
             height: double.maxFinite,
@@ -49,11 +83,9 @@ class ViewTask extends StatelessWidget {
                 Column(
                   children: [
                     const SizedBox(
-                      height: 60,
+                      height: 40,
                     ),
                     IconButton(
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
                       onPressed: () => Get.back(),
                       icon: const Icon(
                         Icons.arrow_back,
@@ -67,7 +99,6 @@ class ViewTask extends StatelessWidget {
                     TextFieldWidget(
                       textController: nameController,
                       hintText: 'Task name',
-                      readOnly: true,
                     ),
                     const SizedBox(
                       height: 20,
@@ -75,32 +106,31 @@ class ViewTask extends StatelessWidget {
                     TextFieldWidget(
                       textController: detailController,
                       hintText: 'Task detail',
-                      readOnly: true,
                       borderRadius: 15,
                       maxLines: 3,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    // GestureDetector(
-                    //   //   onTap: () {
-                    //   //   if (dataValidation()) {
-                    //   //     Get.find<DataController>().postData(
-                    //   //       nameController.text.trim(),
-                    //   //       detailController.text.trim(),
-                    //   //     );
-                    //   //     Get.to(
-                    //   //       () => const AllTasks(),
-                    //   //       transition: Transition.circularReveal,
-                    //   //     );
-                    //   //   }
-                    //   // },
-                    //   child: const ButtonWidget(
-                    //     backgroundcolor: AppColors.mainColor,
-                    //     text: 'Add',
-                    //     textColor: Colors.white,
-                    //   ),
-                    // ),
+                    GestureDetector(
+                      onTap: () {
+                        if (dataValidation()) {
+                          Get.find<DataController>().postData(
+                            nameController.text.trim(),
+                            detailController.text.trim(),
+                          );
+                          Get.to(
+                            () => const AllTasks(),
+                            transition: Transition.circularReveal,
+                          );
+                        }
+                      },
+                      child: const ButtonWidget(
+                        backgroundcolor: AppColors.mainColor,
+                        text: 'Add',
+                        textColor: Colors.white,
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(

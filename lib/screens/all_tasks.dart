@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo_x/screens/edit_task.dart';
 import 'package:todo_x/screens/view_task.dart';
 import 'package:todo_x/utils/app_colors.dart';
 import 'package:todo_x/controllers/data_controller.dart';
@@ -183,11 +184,28 @@ class AllTasks extends StatelessWidget {
                                           const SizedBox(
                                             height: 20,
                                           ),
-                                          const ButtonWidget(
-                                            backgroundcolor:
-                                                AppColors.mainColor,
-                                            text: 'Edit',
-                                            textColor: Colors.white,
+                                          GestureDetector(
+                                               onTap: () {
+                                              Get.off(
+                                                () => EditTask(
+                                                  id: int.parse(
+                                                    controller.myData[index]
+                                                            ['id']
+                                                        .toString(),
+                                                  ),
+                                                ),
+                                              );
+                                              if (kDebugMode) {
+                                                print(
+                                                    "Tapped item id is ${controller.myData[index]['id']}");
+                                              }
+                                            },
+                                            child: const ButtonWidget(
+                                              backgroundcolor:
+                                                  AppColors.mainColor,
+                                              text: 'Edit',
+                                              textColor: Colors.white,
+                                            ),
                                           ),
                                         ],
                                       ),
