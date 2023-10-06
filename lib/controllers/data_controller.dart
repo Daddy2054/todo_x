@@ -75,4 +75,30 @@ class DataController extends GetxController {
       }
     }
   }
+
+  Future<void> updateData(
+    String task,
+    String taskDetail,
+    int id,
+  ) async {
+    _isLoading = true;
+    Response response = await service.postData(
+      '${AppConstants.UPDATE_TASKS}/$id',
+      {
+        "task_name": task,
+        "task_detail": taskDetail,
+      },
+    );
+    if (response.statusCode == 200) {
+      update();
+      //    _myData = response.body;
+      if (kDebugMode) {
+        print('data post successfull');
+      }
+    } else {
+      if (kDebugMode) {
+        print('data post failed');
+      }
+    }
+  }
 }

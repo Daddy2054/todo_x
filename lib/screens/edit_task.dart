@@ -83,10 +83,12 @@ class EditTask extends StatelessWidget {
                 Column(
                   children: [
                     const SizedBox(
-                      height: 40,
+                      height: 60,
                     ),
                     IconButton(
                       onPressed: () => Get.back(),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
                       icon: const Icon(
                         Icons.arrow_back,
                         color: AppColors.secondaryColor,
@@ -115,9 +117,10 @@ class EditTask extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         if (dataValidation()) {
-                          Get.find<DataController>().postData(
+                          Get.find<DataController>().updateData(
                             nameController.text.trim(),
                             detailController.text.trim(),
+                            controller.singleData['id'],
                           );
                           Get.to(
                             () => const AllTasks(),
