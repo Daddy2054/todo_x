@@ -185,7 +185,7 @@ class AllTasks extends StatelessWidget {
                                             height: 20,
                                           ),
                                           GestureDetector(
-                                               onTap: () {
+                                            onTap: () {
                                               Get.off(
                                                 () => EditTask(
                                                   id: int.parse(
@@ -214,8 +214,17 @@ class AllTasks extends StatelessWidget {
                                 });
                             return false;
                           } else {
-                            return Future.delayed(const Duration(seconds: 1),
-                                () => direction == DismissDirection.endToStart);
+                            controller.deleteData(
+                              int.parse(
+                                controller.myData[index]['id'].toString(),
+                              ),
+                            );
+                            return Future.delayed(
+                              const Duration(
+                                seconds: 1,
+                              ),
+                              () => direction == DismissDirection.endToStart,
+                            );
                           }
                         },
                         child: Container(

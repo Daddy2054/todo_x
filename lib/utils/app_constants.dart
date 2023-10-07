@@ -8,4 +8,5 @@ class AppConstants {
   static const String GET_TASK = "$BASE_URL/gettask";
   static const String POST_TASKS = "$BASE_URL/create";
   static const String UPDATE_TASKS = "$BASE_URL/update";
+  static const String DELETE_TASKS = "$BASE_URL/delete";
 }

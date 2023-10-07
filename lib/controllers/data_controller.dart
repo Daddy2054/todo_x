@@ -101,4 +101,25 @@ class DataController extends GetxController {
       }
     }
   }
+
+    Future<void> deleteData(
+    int id,
+  ) async {
+    _isLoading = true;
+    Response response = await service.deleteData(
+      '${AppConstants.DELETE_TASKS}/?id=$id',
+
+    );
+    if (response.statusCode == 200) {
+      update();
+      //    _myData = response.body;
+      if (kDebugMode) {
+        print('data delete successfull');
+      }
+    } else {
+      if (kDebugMode) {
+        print('data post failed');
+      }
+    }
+  }
 }

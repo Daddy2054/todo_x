@@ -42,4 +42,14 @@ class DataService extends GetConnect implements GetxService {
     );
     return response;
   }
+
+     Future<Response> deleteData(
+    String uri,
+  ) async {
+    Response response = await delete(
+      uri,
+      headers: {"Content-Type": "application/json"},
+    );
+    return response;
+  }
 }
