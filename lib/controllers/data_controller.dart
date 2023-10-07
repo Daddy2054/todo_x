@@ -37,7 +37,7 @@ class DataController extends GetxController {
   Future<void> getSingleData(String id) async {
     _isLoading = true;
     Response response = await service.getData(
-      '${AppConstants.GET_TASK}/$id',
+      '${AppConstants.GET_TASK}/?id=$id',
     );
     if (response.statusCode == 200) {
       //    _myData = response.body;
@@ -82,8 +82,8 @@ class DataController extends GetxController {
     int id,
   ) async {
     _isLoading = true;
-    Response response = await service.postData(
-      '${AppConstants.UPDATE_TASKS}/$id',
+    Response response = await service.updateData(
+      '${AppConstants.UPDATE_TASKS}/?id=$id',
       {
         "task_name": task,
         "task_detail": taskDetail,

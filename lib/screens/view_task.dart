@@ -30,6 +30,10 @@ class ViewTask extends StatelessWidget {
     return Scaffold(
       body: GetBuilder<DataController>(
         builder: (controller) {
+          nameController.text =
+              controller.singleData['task_name'] ?? 'Task name not found';
+          detailController.text =
+              controller.singleData['task_detail'] ?? 'Task detail not found';
           return Container(
             width: double.maxFinite,
             height: double.maxFinite,

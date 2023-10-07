@@ -120,7 +120,7 @@ class EditTask extends StatelessWidget {
                           Get.find<DataController>().updateData(
                             nameController.text.trim(),
                             detailController.text.trim(),
-                            controller.singleData['id'],
+                            int.parse(controller.singleData['id']),
                           );
                           Get.to(
                             () => const AllTasks(),
