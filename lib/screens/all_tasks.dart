@@ -1,10 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todo_x/screens/edit_task.dart';
-import 'package:todo_x/screens/view_task.dart';
-import 'package:todo_x/utils/app_colors.dart';
 import 'package:todo_x/controllers/data_controller.dart';
+import 'package:todo_x/routes/routes.dart';
+import 'package:todo_x/utils/app_colors.dart';
 import 'package:todo_x/widgets/button_widget.dart';
 import 'package:todo_x/widgets/task_widget.dart';
 
@@ -63,9 +62,11 @@ class AllTasks extends StatelessWidget {
               ),
               fit: BoxFit.cover,
             )),
-            child: InkWell(
-              onTap: () => Get.back(),
-              child: const Icon(
+            child: IconButton(
+              onPressed: () => Get.back(),
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+              icon: const Icon(
                 Icons.arrow_back,
                 color: AppColors.secondaryColor,
               ),
@@ -160,13 +161,10 @@ class AllTasks extends StatelessWidget {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Get.off(
-                                                () => ViewTask(
-                                                  id: int.parse(
-                                                    controller.myData[index]
-                                                            ['id']
-                                                        .toString(),
-                                                  ),
+                                              Get.toNamed(
+                                                RoutesClass.getViewTaskRoute(
+                                                  controller.myData[index]['id']
+                                                      .toString(),
                                                 ),
                                               );
                                               if (kDebugMode) {
@@ -186,13 +184,19 @@ class AllTasks extends StatelessWidget {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              Get.off(
-                                                () => EditTask(
-                                                  id: int.parse(
-                                                    controller.myData[index]
-                                                            ['id']
-                                                        .toString(),
-                                                  ),
+                                              // Get.off(
+                                              //   () => EditTask(
+                                              //     id: int.parse(
+                                              //       controller.myData[index]
+                                              //               ['id']
+                                              //           .toString(),
+                                              //     ),
+                                              //   ),
+                                              // );
+                                              Get.toNamed(
+                                                RoutesClass.getEditTaskRoute(
+                                                  controller.myData[index]['id']
+                                                      .toString(),
                                                 ),
                                               );
                                               if (kDebugMode) {

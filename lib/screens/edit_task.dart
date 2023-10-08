@@ -8,6 +8,8 @@ import 'package:todo_x/widgets/button_widget.dart';
 import 'package:todo_x/widgets/error_warning_ms.dart';
 import 'package:todo_x/widgets/textfield_widget.dart';
 
+import '../routes/routes.dart';
+
 class EditTask extends StatelessWidget {
   final int id;
   const EditTask({
@@ -122,10 +124,9 @@ class EditTask extends StatelessWidget {
                             detailController.text.trim(),
                             int.parse(controller.singleData['id']),
                           );
-                          Get.to(
-                            () => const AllTasks(),
-                            transition: Transition.circularReveal,
-                          );
+                        Get.offNamed(
+                        RoutesClass.getAllTasksRoute(),
+                      );
                         }
                       },
                       child: const ButtonWidget(

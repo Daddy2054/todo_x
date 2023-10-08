@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_x/routes/routes.dart';
 import 'package:todo_x/utils/app_colors.dart';
-import 'package:todo_x/screens/all_tasks.dart';
 import 'package:todo_x/widgets/button_widget.dart';
-
-import 'add_task.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

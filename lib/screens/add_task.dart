@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todo_x/utils/app_colors.dart';
 import 'package:todo_x/controllers/data_controller.dart';
-import 'package:todo_x/screens/all_tasks.dart';
+import 'package:todo_x/routes/routes.dart';
+import 'package:todo_x/utils/app_colors.dart';
 import 'package:todo_x/widgets/button_widget.dart';
 import 'package:todo_x/widgets/error_warning_ms.dart';
 import 'package:todo_x/widgets/textfield_widget.dart';
@@ -64,10 +64,12 @@ class AddTask extends StatelessWidget {
             Column(
               children: [
                 const SizedBox(
-                  height: 40,
+                  height: 60,
                 ),
                 IconButton(
                   onPressed: () => Get.back(),
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
                   icon: const Icon(
                     Icons.arrow_back,
                     color: AppColors.secondaryColor,
@@ -100,9 +102,12 @@ class AddTask extends StatelessWidget {
                         nameController.text.trim(),
                         detailController.text.trim(),
                       );
-                      Get.to(
-                        () => const AllTasks(),
-                        transition: Transition.circularReveal,
+                      // Get.to(
+                      //   () => const AllTasks(),
+                      //   transition: Transition.circularReveal,
+                      // );
+                      Get.offNamed(
+                        RoutesClass.getAllTasksRoute(),
                       );
                     }
                   },
