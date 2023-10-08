@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todo_x/utils/app_colors.dart';
 import 'package:todo_x/controllers/data_controller.dart';
-import 'package:todo_x/screens/all_tasks.dart';
+import 'package:todo_x/utils/app_colors.dart';
 import 'package:todo_x/widgets/button_widget.dart';
 import 'package:todo_x/widgets/error_warning_ms.dart';
 import 'package:todo_x/widgets/textfield_widget.dart';

@@ -25,13 +25,13 @@ class DataController extends GetxController {
       if (kDebugMode) {
         print('we got the data');
       }
-      update();
     } else {
       if (kDebugMode) {
         print('we did not  get any data');
       }
     }
     _isLoading = false;
+    update();
   }
 
   Future<void> getSingleData(String id) async {
@@ -45,13 +45,13 @@ class DataController extends GetxController {
         print('we got the single data${jsonEncode(response.body)}');
       }
       _singleData = response.body;
-      update();
     } else {
       if (kDebugMode) {
         print('we did not  get any data');
       }
     }
     _isLoading = false;
+    update();
   }
 
   Future<void> postData(String task, String taskDetail) async {
@@ -64,7 +64,6 @@ class DataController extends GetxController {
       },
     );
     if (response.statusCode == 200) {
-      update();
       //    _myData = response.body;
       if (kDebugMode) {
         print('data post successfull');
@@ -74,6 +73,7 @@ class DataController extends GetxController {
         print('data post failed');
       }
     }
+    update();
   }
 
   Future<void> updateData(
@@ -90,7 +90,6 @@ class DataController extends GetxController {
       },
     );
     if (response.statusCode == 200) {
-      update();
       //    _myData = response.body;
       if (kDebugMode) {
         print('data post successfull');
@@ -100,18 +99,19 @@ class DataController extends GetxController {
         print('data post failed');
       }
     }
+    update();
   }
 
-    Future<void> deleteData(
+  Future<void> deleteData(
     int id,
   ) async {
     _isLoading = true;
+        update();
+
     Response response = await service.deleteData(
       '${AppConstants.DELETE_TASKS}/?id=$id',
-
     );
     if (response.statusCode == 200) {
-      update();
       //    _myData = response.body;
       if (kDebugMode) {
         print('data delete successfull');
@@ -121,5 +121,12 @@ class DataController extends GetxController {
         print('data post failed');
       }
     }
+    await Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        _isLoading = false;
+        update();
+      },
+    );
   }
 }
