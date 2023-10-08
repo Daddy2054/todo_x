@@ -60,10 +60,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             InkWell(
               onTap: () {
-                Get.to(
-                  () => const AddTask(),
-                  transition: Transition.zoom,
-                  duration: const Duration(milliseconds: 500),
+                // Get.to(
+                //   () => const AddTask(),
+                //   transition: Transition.zoom,
+                //   duration: const Duration(milliseconds: 500),
+                // );
+                Get.toNamed(
+                  RoutesClass.getAddTaskRoute(),
                 );
               },
               child: const ButtonWidget(
